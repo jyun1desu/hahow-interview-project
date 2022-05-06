@@ -11,10 +11,20 @@ const reset = {
     padding: 0,
     margin: 0,
   },
+  button: {
+	  border: 'none',
+	  backgroundColor: 'transparent',
+	  padding: 0,
+  }
 };
 
 const globalStyle = globalCss({
   ...reset,
+
+  '*': {
+	  fontFamily: 'Zen Maru Gothic',
+	  fontWeight: 500,
+  }
 });
 
 export default globalStyle;
