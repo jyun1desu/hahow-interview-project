@@ -26,7 +26,7 @@ const RatioImage = ({ className, path, alt, ratio }: ImageProps) => {
   return (
     <RatioBox
       className={className}
-      style={{
+      css={{
         paddingBottom: `${100 / ratio}%`,
       }}
     >
