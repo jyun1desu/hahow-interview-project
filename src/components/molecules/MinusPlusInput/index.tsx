@@ -18,6 +18,7 @@ const Input = styled("div", {
     border: "1px solid $gray500",
     borderRadius: "8px",
     fontSize: "20px",
+	padding: '0 24px'
   },
 });
 
@@ -55,7 +56,6 @@ const MinusPlusInput = ({
       <Button
         onClick={() => setCount((pre) => pre + 1)}
         disabled={disablePlus}
-        theme="secondary"
       >
         <ButtonChild>+</ButtonChild>
       </Button>
@@ -63,7 +63,6 @@ const MinusPlusInput = ({
       <Button
         onClick={() => setCount((pre) => pre - 1)}
         disabled={disableMinus}
-        theme="secondary"
       >
         <ButtonChild>-</ButtonChild>
       </Button>

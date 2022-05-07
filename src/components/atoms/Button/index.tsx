@@ -3,17 +3,11 @@ import { styled } from "stitches.config";
 const StyledButton = styled("button", {
   borderRadius: "8px",
   padding: "12px 24px",
-  cursor: 'pointer',
+  cursor: "pointer",
 
   variants: {
     variant: {
       primary: {
-        backgroundColor: "pink",
-        "&:hover": {
-          backgroundColor: "yellow",
-        },
-      },
-      secondary: {
         backgroundColor: "$gray500",
         "&:hover": {
           backgroundColor: "$gray400",
@@ -23,20 +17,26 @@ const StyledButton = styled("button", {
   },
 });
 
+enum ButtonThemeTypes {
+  primary = "primary",
+}
+
 type ButtonProps = {
   onClick: () => void;
   children: React.ReactNode;
-  theme?: "primary" | "secondary";
+  theme?: ButtonThemeTypes;
   type?: "button" | "submit";
   disabled?: boolean;
+  stretch?: boolean;
 };
 
 const Button = ({
   onClick,
   children,
   type = "button",
-  theme = "primary",
+  theme = ButtonThemeTypes.primary,
   disabled = false,
+  stretch = false,
 }: ButtonProps) => {
   return (
     <StyledButton
@@ -44,6 +44,9 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
       variant={theme}
+		css={{
+			width: `${stretch ? '100%': 'inherit'}`
+		}}
     >
       {children}
     </StyledButton>
