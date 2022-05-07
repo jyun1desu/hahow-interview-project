@@ -1,5 +1,6 @@
 import HeroCard from "components/atoms/HeroCard";
 import Grid from "components/atoms/Grid";
+import { Link } from "react-router-dom";
 const fakeData = [
   {
     id: 1,
@@ -30,7 +31,9 @@ const HeroList = () => {
     <Grid columns={4} gap={16}>
       {fakeData.map((h) => (
         <li key={h.id}>
-          <HeroCard name={h.name} imagePath={h.imagePath} />
+          <Link to={`${h.id}`}>
+            <HeroCard name={h.name} imagePath={h.imagePath} />
+          </Link>
         </li>
       ))}
     </Grid>

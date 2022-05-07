@@ -15,6 +15,9 @@ const reset = {
 	  border: 'none',
 	  backgroundColor: 'transparent',
 	  padding: 0,
+  },
+  a: {
+	textDecoration: 'none'
   }
 };
 
