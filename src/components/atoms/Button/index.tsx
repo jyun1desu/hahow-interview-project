@@ -12,6 +12,10 @@ const StyledButton = styled("button", {
         "&:hover": {
           backgroundColor: "$gray400",
         },
+
+        "&:disabled": {
+          pointerEvents: 'none',
+        }
       },
     },
   },
@@ -44,9 +48,9 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
       variant={theme}
-		css={{
-			width: `${stretch ? '100%': 'inherit'}`
-		}}
+      css={{
+        width: `${stretch ? '100%' : 'inherit'}`
+      }}
     >
       {children}
     </StyledButton>

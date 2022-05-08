@@ -1,19 +1,22 @@
 import Router from "route";
+import { RecoilRoot } from "recoil";
 import { styled } from "stitches.config";
 
 const MainContent = styled("main", {
-	display: 'flex',
-	justifyContent: 'center',
-	width: '100%',
+  display: "flex",
+  justifyContent: "center",
+  width: "100%",
 });
 
 function App() {
   return (
-    <div className="App">
-      <MainContent>
-        <Router />
-      </MainContent>
-    </div>
+    <RecoilRoot>
+      <div className="App">
+        <MainContent>
+          <Router />
+        </MainContent>
+      </div>
+    </RecoilRoot>
   );
 }
 

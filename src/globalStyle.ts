@@ -12,12 +12,16 @@ const reset = {
     margin: 0,
   },
   button: {
-	  border: 'none',
-	  backgroundColor: 'transparent',
-	  padding: 0,
+    border: 'none',
+    backgroundColor: 'transparent',
+    padding: 0,
+
+    "&:disabled": {
+      pointerEvents: 'none',
+    }
   },
   a: {
-	textDecoration: 'none'
+    textDecoration: 'none'
   }
 };
 
@@ -25,8 +29,8 @@ const globalStyle = globalCss({
   ...reset,
 
   '*': {
-	  fontFamily: 'Zen Maru Gothic',
-	  fontWeight: 500,
+    fontFamily: 'Zen Maru Gothic',
+    fontWeight: 500,
   }
 });
 

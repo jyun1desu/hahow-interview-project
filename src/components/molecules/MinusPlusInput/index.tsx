@@ -18,7 +18,7 @@ const Input = styled("div", {
     border: "1px solid $gray500",
     borderRadius: "8px",
     fontSize: "20px",
-	padding: '0 24px'
+    padding: '0 12px'
   },
 });
 
@@ -49,7 +49,8 @@ const MinusPlusInput = ({
     }
 
     onChange(count);
-  }, [count, onChange]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count]);
 
   return (
     <Input>

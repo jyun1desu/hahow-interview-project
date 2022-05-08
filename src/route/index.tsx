@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import Heroes from "pages/Heroes";
-import HeroProfile from "components/organisms/HeroProfile";
+import HeroProfile from "pages/Heroes/Profile";
 
 const Router = () => {
   return (
