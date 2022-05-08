@@ -4,7 +4,7 @@ const StyledPage = styled("div", {
   variants: {
     variant: {
       primary: {
-        padding: "70px 40px",
+        padding: "45px",
         width: "100%",
         maxWidth: "1200px",
       },
