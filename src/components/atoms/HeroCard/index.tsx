@@ -34,6 +34,10 @@ const Name = styled("p", {
   letterSpacing: '1px',
   marginTop: '16px',
 
+  '@mb': {
+    fontSize: "20px",
+  },
+
   variants: {
     isPicked: {
       true: {

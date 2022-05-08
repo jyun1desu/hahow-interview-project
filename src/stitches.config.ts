@@ -19,7 +19,7 @@ export const {
     },
   },
   media: {
-    mb: "(min-width: 576px)",
-    tb: "(min-width: 996px)",
+    mb: "(max-width: 576px)",
+    tb: "(max-width: 996px)",
   },
 });

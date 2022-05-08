@@ -11,12 +11,22 @@ const PointBoard = styled("div", {
   justifyContent: "space-between",
   alignItems: "flex-end",
   padding: "36px",
-  marginTop: "20px",
+  marginTop: "24px",
+
+  '@mb': {
+    display: "block",
+    padding: '0',
+  }
 });
 
 const ControlBoard = styled("section", {
   flex: "0 0 45%",
   minWidth: '360px',
+
+  '@mb': {
+    minWidth: 'unset',
+    marginBottom: '24px'
+  }
 });
 
 const Result = styled("section", {
@@ -43,6 +53,7 @@ const EachCount = styled("div", {
     flex: "1 1 auto",
   },
 });
+
 const HeroProfileBoard = () => {
   const { heroId } = useParams();
   const [profile, setProfile] = useState<HeroProfile | null>(null);

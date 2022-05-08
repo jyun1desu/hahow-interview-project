@@ -1,9 +1,22 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getHeroesList } from "api/hero";
-import Grid from "components/atoms/Grid";
 import HeroCard from "components/atoms/HeroCard";
 import { HeroBrief } from "types/hero";
+import { styled } from "stitches.config";
+
+
+const Grid = styled('ul', {
+  display: 'grid',
+  listStyle: "none",
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gap: '16px',
+
+  '@mb': {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: '12px',
+  }
+})
 
 const HeroList = () => {
   const { heroId } = useParams();
@@ -18,7 +31,7 @@ const HeroList = () => {
   }, [setList])
 
   return (
-    <Grid columns={4} gap={16}>
+    <Grid>
       {heroesList.map((h) => (
         <li key={h.id}>
           <Link to={`${h.id}`}>
