@@ -1,18 +1,16 @@
-import HeroList from "components/atoms/HeroList";
+import HeroList from "components/molecules/HeroList";
 import PageLayout, { LayoutTypes } from "pages/PageLayout";
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 
 const HeroesContent = () => {
   return (
-    <>
+    <Suspense fallback={<div>loading...</div>}>
+      <HeroList />
       <Suspense fallback={<div>loading...</div>}>
-        <HeroList />
-        <Suspense fallback={<div>loading...</div>}>
-          <Outlet />
-        </Suspense>
+        <Outlet />
       </Suspense>
-    </>
+    </Suspense>
   );
 };
 
