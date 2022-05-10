@@ -1,6 +1,6 @@
 import { getHeroesList, getHeroProfile, saveHeroProfile } from "api/hero";
 import { useEffect, useMemo, useState } from "react";
-import { atom, selector, useRecoilState, useSetRecoilState } from "recoil";
+import { atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { HeroBrief, HeroProfile } from "types/hero";
 
 export const heroListState = atom<HeroBrief[]>({
@@ -34,9 +34,6 @@ export const currentHeroProfileState = selector<HeroProfile | null>({
         const res = await getHeroProfile(heroId);
         return res;
     },
-    set: ({ set }, newValue) => {
-        set(heroProfileEditState, newValue)
-    }
 })
 
 type Value = {
@@ -54,7 +51,7 @@ type UseHeroProfileFunc = (heroId: string) => [Value, Handler]
 
 export const useHeroProfile: UseHeroProfileFunc = (heroId: string) => {
     const setCurrentHeroId = useSetRecoilState(currentHeroIdState)
-    const [currentHeroProfile, setCurrentHeroProfile] = useRecoilState(currentHeroProfileState)
+    const currentHeroProfile = useRecoilValue(currentHeroProfileState)
     const [heroProfile, setHeroProfile] = useRecoilState(heroProfileEditState)
     const [patchLoading, setLoading] = useState(false);
     const heroPoint = useMemo(() => {
@@ -66,13 +63,11 @@ export const useHeroProfile: UseHeroProfileFunc = (heroId: string) => {
 
     useEffect(() => {
         setCurrentHeroId((heroId))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [heroId])
+    }, [heroId, setCurrentHeroId])
 
     useEffect(() => {
-        setCurrentHeroProfile(currentHeroProfile)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentHeroProfile])
+        setHeroProfile(currentHeroProfile)
+    }, [currentHeroProfile, setHeroProfile])
 
     const updateProfile = (type: string, value: number) => {
         setHeroProfile(pre => ({
