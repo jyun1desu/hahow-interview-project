@@ -1,9 +1,9 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
 import globalStyle from './globalStyle';
 import reportWebVitals from "./reportWebVitals";
+import App from "./App";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,11 +12,11 @@ const root = ReactDOM.createRoot(
 globalStyle();
 
 root.render(
-  // <React.StrictMode>
+  <RecoilRoot>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  // </React.StrictMode>
+  </RecoilRoot>
 );
 
 // If you want to start measuring performance in your app, pass a function

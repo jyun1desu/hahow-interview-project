@@ -1,10 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { styled } from "stitches.config";
 import { useParams } from "react-router-dom";
-import { getHeroProfile, saveHeroProfile } from "api/hero";
 import Button from "components/atoms/Button";
 import MinusPlusInput from "components/molecules/MinusPlusInput";
-import { HeroProfile } from "types/hero";
+import { useHeroProfile } from "recoil/hero";
 
 const PointBoard = styled("div", {
   display: "flex",
@@ -16,7 +15,7 @@ const PointBoard = styled("div", {
   '@mb': {
     display: "block",
     padding: '0',
-  }
+  },
 });
 
 const ControlBoard = styled("section", {
@@ -56,62 +55,37 @@ const EachCount = styled("div", {
 
 const HeroProfileBoard = () => {
   const { heroId } = useParams();
-  const [profile, setProfile] = useState<HeroProfile | null>(null);
-  const [max, setMax] = useState<number | null>(0);
+  const [{ heroProfile, heroPoint, patchLoading }, { updateProfile, saveProfile }] = useHeroProfile(heroId as string);
   const mappedProfile = useMemo(() => {
-    if (!profile) return [];
+    if (!heroProfile) return [];
     const order = ['str', 'int', 'agi', 'luk'];
     return order.map(type => ({
       type,
-      value: profile[type]
+      value: heroProfile[type]
     }));
-  }, [profile]);
+  }, [heroProfile]);
+
   const remain = useMemo(() => {
-    if (!max || !profile) return 0;
-    return max - Object.values(profile).reduce((a, c) => {
+    if (!heroPoint || !heroProfile) return 0;
+    return heroPoint - Object.values(heroProfile).reduce((a, c) => {
       return a + c
     }, 0);
-  }, [max, profile])
-
-  useEffect(() => {
-    (async () => {
-      if (heroId) {
-        const p = await getHeroProfile(heroId);
-        setProfile(p);
-        setMax(Object.values(p).reduce((a, c) => {
-          return a + c
-        }, 0))
-      }
-    })();
-
-    return () => setProfile(null)
-  }, [heroId])
-
-  const handleChange = (type: string, value: number) => {
-    setProfile(pre => ({
-      ...pre,
-      [type]: value
-    }))
-  }
-
-  if (!profile) {
-    return <>loading...</>
-  }
+  }, [heroPoint, heroProfile])
 
   return (
     <PointBoard>
       <ControlBoard>
         {mappedProfile.map((p) => {
           return (
-            <EachCount key={`${heroId}${p.type}`}>
+            <EachCount key={`${p.type}${p.value}`}>
               <span className="title">{p.type.toUpperCase()}</span>
               <MinusPlusInput
                 initialNumber={p.value}
                 onChange={(v) => {
-                  handleChange(p.type, v)
+                  updateProfile(p.type, v)
                 }}
-                disablePlus={remain === 0}
-                disableMinus={remain === max || p.value === 0}
+                disablePlus={remain === 0 || patchLoading}
+                disableMinus={remain === heroPoint || p.value === 0 || patchLoading}
               />
             </EachCount>
           )
@@ -120,13 +94,11 @@ const HeroProfileBoard = () => {
       <Result>
         <p>剩餘點數：{remain}</p>
         <Button
-          onClick={() => {
-            saveHeroProfile(heroId as string, profile)
-          }}
-          disabled={remain !== 0}
+          onClick={saveProfile}
+          disabled={remain !== 0 || patchLoading}
           stretch
         >
-          儲存
+          {patchLoading ? '儲存中...' : '儲存'}
         </Button>
       </Result>
     </PointBoard>

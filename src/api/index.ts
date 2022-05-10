@@ -9,7 +9,7 @@ export enum RequestMethod {
 export const apiFetch = async (
   url: string,
   method: RequestMethod,
-  params = {}
+  params = {},
 ) => {
   const headers = new Headers({
     "Content-Type": "application/json",
@@ -21,5 +21,6 @@ export const apiFetch = async (
     : null;
 
   const result = await fetch(`https://hahow-recruit.herokuapp.com${url}`, { headers, method, body });
-  return result.json();
+  const isReponseTypeJSON = result.headers.get('Content-Type')?.includes('json');
+  return isReponseTypeJSON ? result.json() : result.text();
 };

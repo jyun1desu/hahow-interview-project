@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getHeroesList } from "api/hero";
-import HeroCard from "components/atoms/HeroCard";
-import { HeroBrief } from "types/hero";
 import { styled } from "stitches.config";
-
+import { useRecoilValue } from "recoil";
+import { heroListState } from "recoil/hero";
+import HeroCard from "components/atoms/HeroCard";
 
 const Grid = styled('ul', {
   display: 'grid',
@@ -20,15 +18,7 @@ const Grid = styled('ul', {
 
 const HeroList = () => {
   const { heroId } = useParams();
-  const [heroesList, setList] = useState<HeroBrief[]>([]);
-
-  useEffect(() => {
-    const setHeroesList = async () => {
-      const list = await getHeroesList();
-      setList(list)
-    }
-    setHeroesList();
-  }, [setList])
+  const heroesList = useRecoilValue(heroListState);
 
   return (
     <Grid>
