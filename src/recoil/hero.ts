@@ -1,5 +1,6 @@
 import { getHeroesList, getHeroProfile, saveHeroProfile } from "api/hero";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "components/atoms/Toast";
 import { atom, selector, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { HeroBrief, HeroProfile } from "types/hero";
 
@@ -78,8 +79,15 @@ export const useHeroProfile: UseHeroProfileFunc = (heroId: string) => {
 
     const saveProfile = async () => {
         setLoading(true);
-        await saveHeroProfile(heroId, heroProfile as HeroProfile);
+        const res = await saveHeroProfile(heroId, heroProfile as HeroProfile);
         setLoading(false);
+
+        if (res !== 'OK') {
+            toast.error('儲存失敗，請稍後再試');
+            return;
+        }
+
+        toast.success('儲存成功');
     }
 
     return [{
